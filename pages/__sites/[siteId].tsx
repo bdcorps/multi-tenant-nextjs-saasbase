@@ -1,93 +1,72 @@
-import { useRouter } from "next/router";
-import React, { FunctionComponent } from "react";
-import { Post, Site } from "../../types";
-import { getSite } from "../api/hello";
 import {
-  Text,
-  HStack,
-  Box,
-  Button,
-  Center,
   Container,
-  SimpleGrid,
+  HStack,
+  LinkBox,
+  LinkOverlay,
   Spacer,
   VStack,
   Image,
+  Text,
+  Box,
+  Button,
+  Heading,
+  Center,
+  Divider,
 } from "@chakra-ui/react";
+import React, { FunctionComponent } from "react";
+import Header from "../../components/Header";
 
-interface SiteProps {
-  site: Site; //TODO: add type
-}
+interface PostsProps {}
 
-const Site: FunctionComponent<SiteProps> = ({
-  site: { name, description, posts },
-}: SiteProps) => {
+const Posts: FunctionComponent<PostsProps> = () => {
   return (
-    <Container maxW="container.md" p={4}>
-      <HStack py={2} spacing={6} align="center">
-        <HStack spacing={2}>
-          <Text fontWeight={600} fontSize="md" color="brand.500">
-            {name}
-          </Text>
-        </HStack>
-        <Spacer />
+    <HStack w="full">
+      <HStack spacing={4} w="full">
+        <Text fontWeight={600} color="gray.300">
+          1
+        </Text>
+        <Text fontWeight={600}>Introduction to React 2025</Text>
       </HStack>
 
-      <VStack spacing={10}>
-        <Center>
-          <Box textAlign="center">
-            <Text fontSize="xl" fontWeight={600}>
-              {description}
-            </Text>
+      <Spacer />
+      <Button variant="link" color="Background.500">
+        Read →
+      </Button>
+    </HStack>
+  );
+};
+
+interface SiteIndexProps {}
+
+const SiteIndex: FunctionComponent<SiteIndexProps> = () => {
+  return (
+    <Container maxW="container.md">
+      <VStack spacing={10} w="full" align="flex-start">
+        <Header />
+        <Center height="35vh">
+          <Box>
+            <Heading>Sukhpal Saini</Heading>
+            <Text>Full Stack Dev at Apple</Text>
           </Box>
-          {/* <Box textAlign="center">
-            <Text>{description}</Text>
-          </Box> */}
         </Center>
 
-        <VStack spacing={10} align="flex-start" w="full">
-          {posts.map((post: Post, i: number) => {
-            return (
-              <VStack
-                w="full"
-                spacing={2}
-                align="flex-start"
-                key={`product_${i}`}
-              >
-                <Box
-                  p={4}
-                  _hover={{ backgroundColor: "gray.50" }}
-                  w="full"
-                  rounded="md"
-                >
-                  <Text fontWeight={600}>{post.name}</Text>
-                  <Text>{post.description}</Text>
+        <VStack spacing={4} w="full" align="flex-start">
+          <Box>
+            <Text fontSize="xl" fontWeight={600}>
+              Featured Posts
+            </Text>
+            <Text color="gray.600">Summary top posts in one place</Text>
+          </Box>
 
-                  <Button
-                    onClick={() => {}}
-                    variant="link"
-                    size="sm"
-                    color="brand.500"
-                  >
-                    + Read more
-                  </Button>
-                </Box>
-              </VStack>
-            );
-          })}
+          <Divider />
+
+          <Posts />
         </VStack>
+
+        <Box> </Box>
       </VStack>
     </Container>
   );
 };
 
-export async function getServerSideProps(context: any) {
-  const { siteId } = context.query;
-  const site = await getSite(siteId);
-
-  return {
-    props: { site },
-  };
-}
-
-export default Site;
+export default SiteIndex;
