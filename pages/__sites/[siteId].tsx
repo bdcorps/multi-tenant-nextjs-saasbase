@@ -1,38 +1,50 @@
 import {
-  Container,
-  HStack,
-  LinkBox,
-  LinkOverlay,
-  Spacer,
-  VStack,
-  Image,
-  Text,
   Box,
   Button,
-  Heading,
   Center,
+  Container,
   Divider,
+  Heading,
+  HStack,
+  Spacer,
+  StackDivider,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react";
 import Header from "../../components/Header";
+
+const posts = [
+  { title: "Introduction to React 2025" },
+  { title: "Introduction to React 2026" },
+];
 
 interface PostsProps {}
 
 const Posts: FunctionComponent<PostsProps> = () => {
   return (
-    <HStack w="full">
-      <HStack spacing={4} w="full">
-        <Text fontWeight={600} color="gray.300">
-          1
-        </Text>
-        <Text fontWeight={600}>Introduction to React 2025</Text>
-      </HStack>
-
-      <Spacer />
-      <Button variant="link" color="Background.500">
-        Read →
-      </Button>
-    </HStack>
+    <VStack
+      spacing={4}
+      w="full"
+      divider={<StackDivider borderColor="gray.200" />}
+    >
+      {posts.map((post: any, i: number) => {
+        return (
+          <HStack w="full" key={`post_${i}`}>
+            <HStack spacing={4} w="full">
+              <Text fontWeight={600} color="gray.300">
+                {i + 1}
+              </Text>
+              <Text fontWeight={600}>{post.title}</Text>
+            </HStack>
+            <Spacer />
+            <Button variant="link" color="gray.500">
+              Read →
+            </Button>
+          </HStack>
+        );
+      })}
+    </VStack>
   );
 };
 
