@@ -1,11 +1,12 @@
 import {
   Box,
-  Button,
   Center,
   Container,
   Divider,
+  Flex,
   Heading,
   HStack,
+  Link,
   Spacer,
   StackDivider,
   Text,
@@ -13,15 +14,14 @@ import {
 } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react";
 import Header from "../../components/Header";
+import { Post, Site } from "../../types";
+import { getSite } from "../api/sites";
 
-const posts = [
-  { title: "Introduction to React 2025" },
-  { title: "Introduction to React 2026" },
-];
+interface PostsProps {
+  posts: Post[];
+}
 
-interface PostsProps {}
-
-const Posts: FunctionComponent<PostsProps> = () => {
+const Posts: FunctionComponent<PostsProps> = ({ posts }: PostsProps) => {
   return (
     <VStack
       spacing={4}
@@ -30,49 +30,52 @@ const Posts: FunctionComponent<PostsProps> = () => {
     >
       {posts.map((post: any, i: number) => {
         return (
-          <HStack w="full" key={`post_${i}`}>
-            <HStack spacing={4} w="full">
+          <Flex w="full" key={`post_${i}`}>
+            <HStack spacing={4} w="full" flex={7}>
               <Text fontWeight={600} color="gray.300">
                 {i + 1}
               </Text>
               <Text fontWeight={600}>{post.title}</Text>
             </HStack>
             <Spacer />
-            <Button variant="link" color="gray.500">
+            <Link href={post.link} color="gray.700" flex={1} textAlign="end">
               Read →
-            </Button>
-          </HStack>
+            </Link>
+          </Flex>
         );
       })}
     </VStack>
   );
 };
 
-interface SiteIndexProps {}
+interface SiteIndexProps {
+  site: Site;
+}
 
-const SiteIndex: FunctionComponent<SiteIndexProps> = () => {
+const SiteIndex: FunctionComponent<SiteIndexProps> = ({
+  site: { name, description, subdomain, posts },
+}: SiteIndexProps) => {
   return (
     <Container maxW="container.md">
-      <VStack spacing={10} w="full" align="flex-start">
+      <VStack spacing={10} w="full" align="center">
         <Header />
-        <Center height="35vh">
+        <Center height="20vh">
           <Box>
-            <Heading>Sukhpal Saini</Heading>
-            <Text>Full Stack Dev at Apple</Text>
+            <Heading fontSize="xx-large">{name}</Heading>
+            <Text align="center">{description}</Text>
           </Box>
         </Center>
 
         <VStack spacing={4} w="full" align="flex-start">
           <Box>
             <Text fontSize="xl" fontWeight={600}>
-              Featured Posts
+              All Posts
             </Text>
-            <Text color="gray.600">Summary top posts in one place</Text>
           </Box>
 
           <Divider />
 
-          <Posts />
+          <Posts posts={posts} />
         </VStack>
 
         <Box> </Box>
@@ -80,5 +83,16 @@ const SiteIndex: FunctionComponent<SiteIndexProps> = () => {
     </Container>
   );
 };
+
+export async function getServerSideProps({ params }: any) {
+  const { siteId } = params;
+
+  const site1: Site | null = await getSite(siteId);
+
+  const props: any = { site: site1 };
+  return {
+    props,
+  };
+}
 
 export default SiteIndex;

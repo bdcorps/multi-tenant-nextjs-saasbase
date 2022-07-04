@@ -1,13 +1,15 @@
 export interface Site {
+  subdomain: string,
   name: string,
   description: string,
   posts: Post[]
 }
 
 export interface Post {
-  name: string,
+  title: string,
   description: string,
-  image: string
+  image: string,
+  link: string
 }
 
 export interface Data {
