@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 export default async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
@@ -24,7 +24,9 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (currentHost == "app") {
+  if (currentHost == "app" &&
+    !pathname.startsWith("/api") &&
+    !pathname.startsWith("/sites")) {
     url.pathname = `/__app${pathname}`;
     return NextResponse.rewrite(url);
   }

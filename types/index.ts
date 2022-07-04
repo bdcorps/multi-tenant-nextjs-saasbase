@@ -1,4 +1,5 @@
 export interface Site {
+  email: string,
   subdomain: string,
   name: string,
   description: string,
