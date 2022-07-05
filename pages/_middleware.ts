@@ -16,11 +16,11 @@ export default async function middleware(req: NextRequest) {
   const currentHost =
     process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
       ? hostname
-        .replace(`.launchman-app.vercel.app`, "")
-        .replace(`.launchman.cc`, "")
+        .replace(`.multi-tenant-nextjs-saasbase.vercel.app`, "")
+        .replace(`.blawg.cc`, "")
       : hostname.replace(`.localhost:3000`, "");
 
-  if (hostname === "localhost:3000" || hostname === "launchman.cc") {
+  if (hostname === "localhost:3000" || hostname === "blawg.cc") {
     return NextResponse.next();
   }
 
