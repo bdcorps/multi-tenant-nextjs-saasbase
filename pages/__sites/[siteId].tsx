@@ -2,51 +2,14 @@ import {
   Box,
   Center,
   Container,
-  Divider,
-  Flex,
   Heading,
-  HStack,
-  Link,
-  Spacer,
-  StackDivider,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react";
 import Header from "../../components/Header";
-import { Post, Site } from "../../types";
+import { Site } from "../../types";
 import { getSite } from "../api/sites";
-
-interface PostsProps {
-  posts: Post[];
-}
-
-const Posts: FunctionComponent<PostsProps> = ({ posts }: PostsProps) => {
-  return (
-    <VStack
-      spacing={4}
-      w="full"
-      divider={<StackDivider borderColor="gray.200" />}
-    >
-      {posts.map((post: any, i: number) => {
-        return (
-          <Flex w="full" key={`post_${i}`}>
-            <HStack spacing={4} w="full" flex={7}>
-              <Text fontWeight={600} color="gray.300">
-                {i + 1}
-              </Text>
-              <Text fontWeight={600}>{post.title}</Text>
-            </HStack>
-            <Spacer />
-            <Link href={post.link} color="gray.700" flex={1} textAlign="end">
-              Read →
-            </Link>
-          </Flex>
-        );
-      })}
-    </VStack>
-  );
-};
 
 interface SiteIndexProps {
   site: Site;
@@ -65,18 +28,6 @@ const SiteIndex: FunctionComponent<SiteIndexProps> = ({
             <Text align="center">{description}</Text>
           </Box>
         </Center>
-
-        <VStack spacing={4} w="full" align="flex-start">
-          <Box>
-            <Text fontSize="xl" fontWeight={600}>
-              All Posts
-            </Text>
-          </Box>
-
-          <Divider />
-
-          <Posts posts={posts} />
-        </VStack>
 
         <Box> </Box>
       </VStack>
