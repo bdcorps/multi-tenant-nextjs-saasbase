@@ -40,7 +40,7 @@ const App: NextPage = () => {
               </Text>
             </Box>
             <Spacer />
-            <Link colorScheme="brand" href={`${subdomain}.blawg.cc`}>
+            <Link colorScheme="brand" href={`https://${subdomain}.blawg.cc`}>
               Visit Blog
             </Link>
           </HStack>
