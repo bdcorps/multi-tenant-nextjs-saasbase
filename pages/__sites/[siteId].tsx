@@ -7,6 +7,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react";
+import AllPosts from "../../components/AllPosts";
 import Header from "../../components/Header";
 import { Site } from "../../types";
 import { getSite } from "../api/sites";
@@ -29,7 +30,7 @@ const SiteIndex: FunctionComponent<SiteIndexProps> = ({
           </Box>
         </Center>
 
-        <Box> </Box>
+        <AllPosts posts={posts} />
       </VStack>
     </Container>
   );
