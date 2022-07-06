@@ -1,4 +1,13 @@
-import { Box, Container, Heading, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  HStack,
+  Spacer,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import type { NextPage } from "next";
 import React, { useState } from "react";
 import Header from "../../components/Header";
@@ -12,27 +21,32 @@ const App: NextPage = () => {
     setSite(site);
   };
 
-  console.log("is site");
-
   return (
     <>
-      <Container maxW="container.md">
-        <VStack spacing={10} w="full" align="flex-start">
-          <Header />
-          <Box>
-            <Heading>Viewing Sukhs Blawg</Heading>
-            <Text fontSize="large">
-              Your users will update their website and add posts here
-            </Text>
-          </Box>
-          <Box p={4} backgroundColor="gray.100" rounded="md" w="full">
-            <Text>Edit site data in data/index.ts</Text>
-          </Box>
-        </VStack>
-      </Container>
+      {!site ? (
+        <Login onLoggedIn={onLoggedIn} />
+      ) : (
+        <Container maxW="container.md">
+          <VStack spacing={10} w="full" align="flex-start">
+            <Header />
+            <HStack w="full">
+              <Box>
+                <Heading>Viewing Sukh&apos;s Blawg</Heading>
+                <Text fontSize="large" color="gray.500">
+                  Update your website and create new posts here
+                </Text>
+              </Box>
+              <Spacer />
+              <Button>Log out</Button>
+            </HStack>
+            <Box p={4} backgroundColor="gray.100" rounded="md" w="full">
+              <Text>Edit site data in data/index.ts</Text>
+            </Box>
+          </VStack>
+        </Container>
+      )}
     </>
   );
-  return <>{!site ? <Login onLoggedIn={onLoggedIn} /> : <></>}</>;
 };
 
 export default App;

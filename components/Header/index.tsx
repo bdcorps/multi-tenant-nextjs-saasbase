@@ -1,4 +1,5 @@
-import { HStack, Image, Link, LinkBox, LinkOverlay } from "@chakra-ui/react";
+import { Center, HStack, Link, LinkBox, LinkOverlay } from "@chakra-ui/react";
+import Image from "next/image";
 import React, { FunctionComponent } from "react";
 
 interface HeaderProps {}
@@ -13,7 +14,14 @@ const Header: FunctionComponent<HeaderProps> = () => {
       </HStack>
       <LinkBox>
         <LinkOverlay href={`https://twitter.com/sukh`} isExternal>
-          <Image src="./twitter.svg" w={6}></Image>
+          <Center>
+            <Image
+              src="/twitter.svg"
+              width={20}
+              height={20}
+              alt="Twitter logo"
+            ></Image>
+          </Center>
         </LinkOverlay>
       </LinkBox>
     </HStack>
